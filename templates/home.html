@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+<span>Logged in as {{ session.email }} <a href="{{ url_for('logout') }}">Logout</a></span>
+<div class="table-responsive-sm">
+    <table class="table table-dark table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Time</th>
+                <th scope="col">x</th>
+                <th scope="col">x^2</th>
+                <th scope="col">Created by</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sample in samples %}
+            <tr>
+                <th scope="row">{{ sample.date }}</th>
+                <td>{{ sample.x }}</td>
+                <td>{{ sample.x2 }}</td>
+                <td>{{ sample.user }}</td>
+                <td><a name="delete_{{ sample }}" id="delete_{{ sample }}" class="btn btn-danger" href="{{ url_for('delete_item', id=sample._id) }}" role="button"><i class="fa fa-trash"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<a name="insert" id="btn_insert" class="btn btn-primary" href="{{ url_for('insert') }}" role="button">Insert</a>
+<a name="delete" id="btn_delete" class="btn btn-danger" href="{{ url_for('delete') }}" role="button">Delete</a>
+{% endblock content %}
